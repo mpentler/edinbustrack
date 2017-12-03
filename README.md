@@ -1,6 +1,6 @@
 # edinbustrack
 A python script to display live Edinburgh bus times for an individual stop
-(C) Mark Pentler 2017
+Code is (C) Mark Pentler 2017
 
 ## Install
 
