@@ -1,5 +1,5 @@
-# edinbustrack
-A python script to display live Edinburgh bus times for an individual stop
+# edinbustrack V0.01
+A python library to display live Edinburgh bus times for an individual stop
 
 Code is (C) Mark Pentler 2017
 
@@ -10,26 +10,20 @@ https://www.crummy.com/software/BeautifulSoup/
 
 ## Usage
 
-Edit the "edinbustrack.py" file in a text editor to change the stop_id variable to the ID of the bus stop you require. You can retrieve this from the Edinburgh bus tracker website:
+There are two examples included - a simple shell output and one using ncurses. There is a single function called get_bus_times() that will retrieve the data.
+
+The function requires a single integer parameter to be passed. This is the ID of the bus stop you require. You can retrieve this from the Edinburgh bus tracker website:
 http://www.mybustracker.co.uk
 
 You can also get them from the bus stop signs on the street.
 
-Running the script with "python edinbustrack.py" will output a constantly updating table display to the screen, clearing with an OS call to the "clear" command.
+## Further adaptation
 
-Obviously this is a rather limited output and you'll most probably be wanting to adapt the display for other usages...
-
-## Adapting
-
-You can see by the code that a single call to get_times returns a 2D list containing each service and the time remaining. A simple iteration of this list further down displays the data.
-
-This means that you can pop this block of code into your own where required to populate variables, send output to an ncurses display, etc.
-
-I plan to turn this project into a library and include the current code as an example, along with said ncurses example, and a more fancy pygame display. Clearly this could be very useful for Raspberry Pi or similarly-based systems.
+I'll try and work on a PyGame example soon as I want to eventually get this running on my TV on a Raspberry Pi. Could also send it to one of those LCD matrix displays. I wondered about a Kodi screensaver too?
 
 ## Disclaimer
 
 It goes without saying that this could:
 
-* Break at any time - I'll try and keep on top of any changes
+* Break at any time - I'll try and keep on top of any changes to the MyBusTracker website that stop it working.
 * Disappear at any time - This is a project unassociated with the City of Edinburgh Council or any of the bus services that operate on its routes. Hopefully they're cool with it. It's a hobby project that doesn't detract from their other services. Maybe we can use the API someday...
