@@ -13,7 +13,7 @@ Then just "import from edinbustrack *" to load it into your project.
 ## Usage
 
 There are three examples included:
-* A simple shell outputted table with appalling formatting that I never finished tidying up
+* A simple shell-outputted table with appalling formatting that I never finished tidying up
 * A curses-based example, again with awful formatting
 * A more polished PyGame-based example that could be adapted for many applications or displays
 
