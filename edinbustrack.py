@@ -1,4 +1,4 @@
-# Edinburgh bus tracker - get all of the upcoming services at a particular stop
+# edinbustrack V0.02 - get all of the upcoming services at a particular stop
 # (c) Mark Pentler 2017
 #
 # This uses screen scraping as you appear to have to be a proper developer to
@@ -12,7 +12,7 @@ def get_bus_times(stop_id): # returns a list of expected buses at the chosen sto
         r  = requests.get(url) # make our request
         data = r.text
         soup = BeautifulSoup(data, "html.parser") # bs4 doing its work
-        stop_data = soup.find_all("tr", {"class": " srUtmLxK"}) # grab every single bus entry in the table
+        stop_data = soup.find_all("tr", {"class": " sjSNZKmO"}) # grab every single bus entry in the table - this ID changes!
         services = [] # store our services in this list
 
         for row_num, row in enumerate(stop_data):
