@@ -24,7 +24,7 @@ You can also get them from the bus stop signs on the street.
 
 This function will return a list of lists with each list containing: id (int), service (string), mins (string)
 * id is just a row entry ID in case you need to make formatting decisions based on specific rows of data
-* service is a service ID
+* service is a service number (the one on the front of the bus...)
 * mins is either the time remaining in minutes, the word DUE if he time remaining is less than a minute, or a future moment in time in 24-hour format (usually for night buses that haven't started running yet)
 
 ## Disclaimer
