@@ -8,7 +8,7 @@ Code is (C) Mark Pentler 2017
 Obviously you need python for this, but you also need Beautiful Soup 4 for the screen scraping. You can grab that from here:
 https://www.crummy.com/software/BeautifulSoup/
 
-Then just "import from edinbustrack *" to load it into your project.
+Then just `import from edinbustrack *` to load it into your project.
 
 ## Usage
 
