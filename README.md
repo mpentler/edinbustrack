@@ -1,4 +1,4 @@
-# edinbustrack V0.02
+# edinbustrack V0.0.2
 A python library to display live Edinburgh bus times for an individual stop
 
 Code is (C) Mark Pentler 2017
@@ -15,7 +15,7 @@ Then just `import from edinbustrack *` to load it into your project.
 There are three examples included:
 * A simple shell-outputted table with appalling formatting that I never finished tidying up
 * A curses-based example, again with awful formatting
-* A more polished PyGame-based example that could be adapted for many applications or displays
+* A more polished PyGame-based example that could be adapted for many applications or displays - this is broken right now (see the issues list for details)
 
 There is a single function called get_bus_times() that will retrieve the data. The function requires a single integer parameter to be passed. This is the ID of the bus stop you require. You can retrieve this from the Edinburgh bus tracker website:
 http://www.mybustracker.co.uk
