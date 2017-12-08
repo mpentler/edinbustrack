@@ -1,4 +1,4 @@
-# edinbustrack V0.02
+# edinbustrack V0.03
 A small (and annoyingly currently-broken) python library to display live Edinburgh bus times for an individual stop
 
 Code is (C) Mark Pentler 2017
