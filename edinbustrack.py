@@ -12,15 +12,16 @@ from bs4 import BeautifulSoup
 import requests
 
 def get_bus_times(stop_id): # returns a list of expected buses at the chosen stop
-#	url = "http://www.mybustracker.co.uk/?module=mobile&mode=1&busStopCode=" + stop_id + "&subBusStop=Display+Departures"
-#	r  = requests.get(url) # make our request
-#	data = r.text
-#	soup = BeautifulSoup(data, "html.parser") # bs4 doing its work
-#	stop_data = soup.find_all("tr", {"class": " sjSNZKmO"}) # grab every single bus entry in the table - this ID changes!
-#	services = [] # service list goes in here
-	services = [(0,"1","5"),(1,"1","14"),(2,"3","4"),(3,"3","9"),(4,"33","12"),(5,"33","24"),(6,"x","xx"),(7,"x","xx"),(8,"x","x"),(9,"xx","xx"),(10,"N25","00:24"),(11,"N25","00:54")] # some test data
+	url = "http://www.mybustracker.co.uk/?module=mobile&mode=1&busStopCode=" + stop_id + "&subBusStop=Display+Departures"
+	r  = requests.get(url) # make our request
+	data = r.text
+	soup = BeautifulSoup(data, "html.parser") # bs4 doing its work
+	stop_data = soup.find_all("tr", attrs={'style': None, 'class': None}) # grab every single bus entry in the table - this ID changes!
+	print stop_data
+	services = [] # service list goes in here
+#	services = [(0,"1","5"),(1,"1","14"),(2,"3","4"),(3,"3","9"),(4,"33","12"),(5,"33","24"),(6,"x","xx"),(7,"x","xx"),(8,"x","x"),(9,"xx","xx"),(10,"N25","00:24"),(11,"N25","00:54")] # some test data
 
-#        for row_num, row in enumerate(stop_data):
-#                cols = row.find_all("td") # this will grab every column per bus
-#                services.append ([row_num, cols[0].get_text(strip=True).encode("ascii"), cols[2].get_text(strip=True).encode("ascii")]) # extract service and time remaining
+        for row_num, row in enumerate(stop_data):
+                cols = row.find_all("td") # this will grab every column per bus
+                services.append ([row_num, cols[0].get_text(strip=True).encode("ascii"), cols[2].get_text(strip=True).encode("ascii")]) # extract service and time remaining
         return services
