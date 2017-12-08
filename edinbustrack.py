@@ -1,4 +1,4 @@
-# edinbustrack V0.02 - get all of the upcoming services at a particular stop
+# edinbustrack V0.04 - get all of the upcoming services at a particular stop
 # (c) Mark Pentler 2017
 #
 # This uses screen scraping as you appear to have to be a proper developer to

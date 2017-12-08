@@ -1,5 +1,5 @@
-# edinbustrack V0.03
-A small (and annoyingly currently-broken) python library to display live Edinburgh bus times for an individual stop
+# edinbustrack V0.04
+A small python library to display live Edinburgh bus times for an individual stop
 
 Code is (C) Mark Pentler 2017
 
@@ -31,5 +31,5 @@ This function will return a list of lists with each list containing: id (int), s
 
 It goes without saying that this could:
 
-* Break at any time - I'll try and keep on top of any changes to the MyBusTracker website that stop it working. The devs are randomising the table cell ID names to stop scraping, so the library needs a chunk of code adding to check this first and change its queries accordingly. One day the whole cell layout changed completely and no cells had class attributes to search for.
+* Break at any time - I'll try and keep on top of any changes to the MyBusTracker website that stop it working. The devs are randomising the table cell ID names to stop scraping, so the library needs a chunk of code adding to check this first and change its queries accordingly. One day the whole cell layout changed completely.
 * Disappear at any time - This is a project unassociated with the City of Edinburgh Council or any of the bus services that operate on its routes. Hopefully they're cool with it. It's a hobby project that doesn't detract from their other services. Maybe we can use the API someday...
