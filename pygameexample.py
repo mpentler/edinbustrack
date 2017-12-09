@@ -8,15 +8,6 @@ import datetime
 
 stop_id = "36232626"
 
-# PyGame requires quite a bit of setup, the block below is to setup the surface
-pygame.init() # required for setting some variables
-os.putenv('DISPLAY', ':0.0') # use framebuffer for output via an envvar
-res_info = pygame.display.Info() # find the size of our framebuffer...
-screen_width = res_info.current_w
-screen_height = res_info.current_h
-size = (screen_width, screen_height) # ...and make our screen that big
-screen = pygame.display.set_mode(size) # finally, define our PyGame surface
-
 # Define some constants for later use
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -30,17 +21,21 @@ COL_3_L_EDGE = COL_2_L_EDGE + CELL_WIDTH + H_SPACING + H_SPACING
 COL_4_L_EDGE = COL_3_L_EDGE + CELL_WIDTH + H_SPACING
 EXTRA = 10
 
+# PyGame requires quite a bit of setup, the block below is to setup the surface
+pygame.init() # required for setting some variables
+os.putenv('DISPLAY', ':0.0') # use framebuffer for output via an envvar
+res_info = pygame.display.Info() # find the size of our framebuffer...
+screen_width = res_info.current_w
+screen_height = res_info.current_h
+size = (screen_width, screen_height) # ...and make our screen that big
+screen = pygame.display.set_mode(size) # finally, define our PyGame surface
+screen.fill(WHITE)
+
 # Font definitions
 title_font = pygame.font.Font("/usr/share/fonts/truetype/lato/Lato-Heavy.ttf", 72)
 time_font = pygame.font.Font("/usr/share/fonts/truetype/lato/Lato-Heavy.ttf", 40)
 col_head_font = pygame.font.Font("/usr/share/fonts/truetype/lato/Lato-Regular.ttf", 40)
 cell_font = pygame.font.Font("/usr/share/fonts/truetype/lato/Lato-Heavy.ttf", 60)
-
-# Draw some UI elements. Title first
-screen.fill(WHITE)
-title = title_font.render("Edinburgh Bus Tracker", 1, (0, 0, 0))
-title_rect = title.get_rect(center=(screen_width/2, 35))
-screen.blit(title, title_rect)
 
 # And some more labels and lines and things
 pygame.draw.lines(screen, BLACK, False, [((screen_width/2), 130), ((screen_width/2), screen_height)], 10)
@@ -72,15 +67,15 @@ def update_times(): # get new timing data and redraw the screen
 	services = get_bus_times(stop_id)
 	Y_POS = 240
 	for id, service, mins in services: # iterate through the list
-		if id < 6: # which column are we writing to?
+		if id < 6: # start on column 1
 			label1 = cell_font.render(service, 1, (0, 0, 0))
 			label1_rect = label1.get_rect(center=(COL_1_L_EDGE + EXTRA + CELL_WIDTH/2, Y_POS))
 			screen.blit(label1, label1_rect)
 			label2 = cell_font.render(mins, 1, (0, 0, 0))
 			label2_rect = label2.get_rect(center=(COL_2_L_EDGE + EXTRA + CELL_WIDTH/2, Y_POS))
 			screen.blit(label2, label2_rect)
-			Y_POS = Y_POS + 130
-		elif id == 6: # move to column 2
+			Y_POS = Y_POS + 130 # move to the next row
+		elif id == 6: # this gets run only once to move us to column 2
 			Y_POS = Y_POS - (130*6) # move the cursor up
 			label3 = cell_font.render(service, 1, (0, 0, 0))
 			label3_rect = label3.get_rect(center=(COL_3_L_EDGE + EXTRA + CELL_WIDTH/2, Y_POS))
@@ -99,10 +94,15 @@ def update_times(): # get new timing data and redraw the screen
 			Y_POS = Y_POS + 130
 	return
 
-# After all of this setup we want to draw the cells, then grab the data and populate for first run
-# Every successive check will be on :30 or :00 seconds
+# After all of this setup we want to draw the cells, the title and bus stop name,
+# then grab the data and populate for first run. Every successive check will be
+# on :30 or :00 seconds
 draw_cell_bgs()
-update_times()
+title_string = "Next departures from " + get_stop_name(stop_id)
+title = title_font.render(title_string, 1, (0, 0, 0))
+title_rect = title.get_rect(center=(screen_width/2, 35))
+screen.blit(title, title_rect)
+update_times() # get our first set of data
 pygame.display.flip() # draw screen for the first time
 clock = pygame.time.Clock() # Setup the PyGame tick clock
 quitting = False # running state
@@ -115,17 +115,16 @@ while not quitting:
 			break
 
 	current_datetime = datetime.datetime.now()
-	time_string = current_datetime.strftime('%H:%M:%S')
+	time_string = current_datetime.strftime('%H:%M.%S')
 	time_display = time_font.render(time_string, 1, (0, 0, 0))
 	time_rect = time_display.get_rect(center=(100, 35))
 	pygame.draw.rect(screen, WHITE, (0, 0, 250, 100), 0)
 	screen.blit(time_display, time_rect)
 
-	if current_datetime.second == 0 or current_datetime.second == 30:
-		draw_cell_bgs()
-		update_times()
+	if current_datetime.second == 0 or current_datetime.second == 30: # are we updating?
+		draw_cell_bgs() # yes we are, so blank the current data
+		update_times() # and get some new data
 	pygame.display.flip() # update the display
-	clock.tick() # tick tock!
+	clock.tick(60) # tick tock!
 
 pygame.quit() # required to exit cleanly and not mess up the framebuffer
-
