@@ -11,7 +11,7 @@ stop_name = get_stop_name(stop_id)
 
 while True:
 	services = get_bus_times(stop_id) # update our service list
-#	os.system("clear")
+	os.system("clear")
 
 	print "Next departures from " + stop_name + " - CTRL-C to exit"
         print "---------------------"
