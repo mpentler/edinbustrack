@@ -5,6 +5,7 @@ from edinbustrack import *
 import pygame
 import os
 import datetime
+import threading
 
 stop_id = "36232626"
 
@@ -92,6 +93,7 @@ def update_times(): # get new timing data and redraw the screen
 			label4_rect = label4.get_rect(center=(COL_4_L_EDGE + EXTRA + CELL_WIDTH/2, Y_POS))
 			screen.blit(label4, label4_rect)
 			Y_POS = Y_POS + 130
+	pygame.display.flip() # because this is running as a fire-and-forget thread we need to call the screen redraw here
 	return
 
 # After all of this setup we want to draw the cells, the title and bus stop name,
@@ -105,6 +107,7 @@ screen.blit(title, title_rect)
 update_times() # get our first set of data
 pygame.display.flip() # draw screen for the first time
 clock = pygame.time.Clock() # Setup the PyGame tick clock
+updating = 0
 quitting = False # running state
 
 # Main Loop
@@ -121,9 +124,16 @@ while not quitting:
 	pygame.draw.rect(screen, WHITE, (0, 0, 250, 100), 0)
 	screen.blit(time_display, time_rect)
 
-	if current_datetime.second == 0 or current_datetime.second == 30: # are we updating?
-		draw_cell_bgs() # yes we are, so blank the current data
-		update_times() # and get some new data
+	if (current_datetime.second == 0 or current_datetime.second == 30) and updating == 0: # are we updating?
+		updating = 1 # set our state so we don't accidentally run more threads than we need
+		screen.fill(BLACK)
+		thread = threading.Thread(target=update_times) # and get some new data. now with extra threading!
+		thread.start() 
+	if updating == 1:
+		if not thread.isAlive(): # if we're in update mode but our thread isn't alive we can reset the update state
+			updating = 0 # reset the update state
+			screen.fill(WHITE)
+
 	pygame.display.flip() # update the display
 	clock.tick(60) # tick tock!
 
