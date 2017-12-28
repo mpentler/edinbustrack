@@ -44,10 +44,10 @@ It goes without saying that this could:
 ## Changelog (from memory up to v0.0.5)
 
 ### Early December 2017:
-v0.0.1 initial release as a standalone app
-v0.0.2 converted to a library, shell and curses examples added
-v0.0.3 added pygame example, but scraping is broken
-v0.0.4 scraping fixed, fixed pygame display errors, and completed refactorisation of the code
+- v0.0.1 initial release as a standalone app
+- v0.0.2 converted to a library, shell and curses examples added
+- v0.0.3 added pygame example, but scraping is broken
+- v0.0.4 scraping fixed, fixed pygame display errors, and completed refactorisation of the code
 
 ### v0.0.5 - 9th Dec 2017
 - added get_stop_name function and updated all included examples to demonstrate its use
