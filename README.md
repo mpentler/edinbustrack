@@ -1,3 +1,5 @@
+## Edit Nov 2022: this is staying here for posterity but screen-scraping is awful and there is a proper API I could use instead. But I no longer need a solution anymore.
+
 # edinbustrack V0.05
 A (currently broken) small python library to display live Edinburgh bus times for an individual stop
 
